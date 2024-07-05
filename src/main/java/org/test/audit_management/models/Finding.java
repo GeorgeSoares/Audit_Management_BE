@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Table(name = "finding")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor

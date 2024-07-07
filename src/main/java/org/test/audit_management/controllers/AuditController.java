@@ -47,7 +47,7 @@ public class AuditController {
         return auditService.getAudit(auditId);
     }
 
-    @PostMapping(value = "/audits/{auditId}")
+    @PutMapping(value = "/audits/{auditId}")
     public ResponseEntity<?> updateAudit(@PathVariable UUID auditId, @RequestBody AuditEditDTO auditEditDTO) {
 
         Optional<Audit> auditOptional = auditRepository.findById(auditId);

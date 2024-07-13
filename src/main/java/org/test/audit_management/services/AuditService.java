@@ -18,9 +18,7 @@ import java.util.UUID;
 public class AuditService {
 
     @Autowired
-    AuditRepository auditRepository;
-    @Autowired
-    private AuditorRepository auditorRepository;
+    private AuditRepository auditRepository;
 
     public boolean createNewAudit(AuditRequestDTO auditRequestDTO) {
         Audit newAudit = new Audit();

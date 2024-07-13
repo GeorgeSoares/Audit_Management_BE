@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/audits")
 public class AuditController {
 
     @Autowired
@@ -37,17 +37,17 @@ public class AuditController {
         return ResponseEntity.status(HttpStatus.OK).body("Fail to create the audit");
     }
 
-    @GetMapping(value = "/audits")
+    @GetMapping(value = "/")
     public List<Audit> listAllAudits() {
         return auditService.listAudits();
     }
 
-    @GetMapping(value = "/audits/{auditId}") // Add custom return to the function
+    @GetMapping(value = "/{auditId}") // Add custom return to the function
     public Optional<Audit> getAudit(@PathVariable UUID auditId) {
         return auditService.getAudit(auditId);
     }
 
-    @PutMapping(value = "/audits/{auditId}")
+    @PutMapping(value = "/{auditId}")
     public ResponseEntity<?> updateAudit(@PathVariable UUID auditId, @RequestBody AuditEditDTO auditEditDTO) {
 
         Optional<Audit> auditOptional = auditRepository.findById(auditId);
@@ -63,7 +63,7 @@ public class AuditController {
         }
     }
 
-    @DeleteMapping(value = "/audits/{auditId}")
+    @DeleteMapping(value = "/{auditId}")
     public ResponseEntity<?> deleteAudit(@PathVariable UUID auditId) {
 
         if (auditService.deleteAudit(auditId)) {

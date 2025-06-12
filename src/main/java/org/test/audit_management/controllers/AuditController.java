@@ -16,6 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/audits")
+@CrossOrigin(origins = "*")
 public class AuditController {
 
     @Autowired

@@ -5,31 +5,32 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.test.audit_management.dtos.EditUserDTO;
-import org.test.audit_management.models.UserAccount;
-import org.test.audit_management.services.UserAccountService;
+import org.test.audit_management.models.User;
+import org.test.audit_management.services.UserService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/users")
-public class UserAccountController {
+public class UserController {
 
     @Autowired
-    UserAccountService userAccountService;
+    UserService userService;
 
     @PutMapping("/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable long userId, @RequestBody EditUserDTO editUserDTO) throws Exception {
         try {
-            return ResponseEntity.ok(userAccountService.editUser(editUserDTO));
+            return ResponseEntity.ok(userService.editUser(editUserDTO));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<?> deleteUser(@PathVariable long userId) {
+    public ResponseEntity<?> deleteUser(@PathVariable UUID userId) {
         try {
-            userAccountService.deleteUser(userId);
+            userService.deleteUser(userId);
             return ResponseEntity.ok("User deleted successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -37,14 +38,14 @@ public class UserAccountController {
     }
 
     @GetMapping("/")
-    public List<UserAccount> getAllUsers() {
-        return userAccountService.getAllUsers();
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<?> getUser(@PathVariable long userId) {
+    public ResponseEntity<?> getUser(@PathVariable UUID userId) {
         try {
-            return ResponseEntity.ok(userAccountService.getUserAccount(userId));
+            return ResponseEntity.ok(userService.getUserAccount(userId));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

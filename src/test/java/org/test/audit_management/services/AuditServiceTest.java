@@ -3,15 +3,11 @@ package org.test.audit_management.services;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.test.audit_management.repositories.AuditRepository;
-import org.test.audit_management.repositories.AuditorRepository;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.test.audit_management.repositories.UserRepository;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -20,7 +16,7 @@ class AuditServiceTest {
     @Mock
     AuditRepository auditRepository;
     @Mock
-    private AuditorRepository auditorRepository;
+    private UserRepository userRepository;
 
     @BeforeEach
     void setup() {

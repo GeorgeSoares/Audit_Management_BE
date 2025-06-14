@@ -1,11 +1,7 @@
 package org.test.audit_management.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.WebProperties;
-import org.test.audit_management.dtos.AuditRequestDTO;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

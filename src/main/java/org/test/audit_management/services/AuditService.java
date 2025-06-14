@@ -7,7 +7,6 @@ import org.test.audit_management.dtos.AuditEditDTO;
 import org.test.audit_management.dtos.AuditRequestDTO;
 import org.test.audit_management.models.Audit;
 import org.test.audit_management.repositories.AuditRepository;
-import org.test.audit_management.repositories.AuditorRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -6,6 +6,10 @@ import java.util.UUID;
 
 public record NewFindingDTO(@NotNull String assessment,
                             @NotNull String findingTitle,
+                            @NotNull String status,
                             @NotNull String findingDescription,
-                            @NotNull String responsiblePerson) {
+                            String rootCause,
+                            @NotNull String responsiblePerson,
+                            @NotNull String lastEditor,
+                            String actions) {
 }

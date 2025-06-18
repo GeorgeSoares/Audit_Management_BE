@@ -66,11 +66,16 @@ public class Finding {
 
     public Finding(NewFindingDTO newFindingDTO, Audit audit) {
         this.audit = audit;
-        this.assessment = newFindingDTO.assessment();
-        this.findingTitle = newFindingDTO.findingTitle();
-        this.findingDescription = newFindingDTO.findingDescription();
-        this.responsiblePerson = newFindingDTO.responsiblePerson();
         this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+
+        if (newFindingDTO.assessment() != null) { this.assessment = newFindingDTO.assessment(); }
+        if (newFindingDTO.status() != null) { this.status = newFindingDTO.status(); }
+        if (newFindingDTO.findingTitle() != null) { this.findingTitle = newFindingDTO.findingTitle(); }
+        if (newFindingDTO.findingDescription() != null) { this.findingDescription = newFindingDTO.findingDescription(); }
+        if (newFindingDTO.responsiblePerson() != null) { this.responsiblePerson = newFindingDTO.responsiblePerson(); }
+        if (newFindingDTO.rootCause() != null) { this.rootCause = newFindingDTO.rootCause(); }
+        if (newFindingDTO.actions() != null) { this.actions = newFindingDTO.actions(); }
     }
 
     public static LocalDateTime convertMllsTimeStamp(long stamp) {
@@ -82,24 +87,18 @@ public class Finding {
     }
 
     public void updateFields(FindingEditDTO findingEditDTO) {
-        this.assessment = findingEditDTO.assessment();
-        this.findingTitle = findingEditDTO.findingTitle();
-        this.status = findingEditDTO.status();
-        this.findingDescription = findingEditDTO.findingDescription();
-        this.responsiblePerson = findingEditDTO.responsiblePerson();
-        this.lastEditor = findingEditDTO.lastEditor();
+        if (findingEditDTO.assessment() != null) { this.assessment = findingEditDTO.assessment(); }
+        if (findingEditDTO.status() != null) { this.status = findingEditDTO.status(); }
+        if (findingEditDTO.findingTitle() != null) { this.findingTitle = findingEditDTO.findingTitle(); }
+        if (findingEditDTO.findingDescription() != null) { this.findingDescription = findingEditDTO.findingDescription(); }
+        if (findingEditDTO.responsiblePerson() != null) { this.responsiblePerson = findingEditDTO.responsiblePerson(); }
+        if (findingEditDTO.actions() != null) { this.actions = findingEditDTO.actions(); }
+        if (findingEditDTO.rootCause() != null) { this.rootCause = findingEditDTO.rootCause(); }
+
         this.updatedAt = LocalDateTime.now();
 
-        if (!findingEditDTO.rootCause().isEmpty()) {
-            this.rootCause = findingEditDTO.rootCause();
-        }
-
-        if (!findingEditDTO.actions().isEmpty()) {
-            this.actions = findingEditDTO.actions();
-        }
-
-        if (findingEditDTO.closedAt() != 0) {
-            this.closedAt = Finding.convertMllsTimeStamp(findingEditDTO.closedAt());
+        if (findingEditDTO.status().equals("Closed")) {
+            this.closedAt = LocalDateTime.now();
         }
     }
 }

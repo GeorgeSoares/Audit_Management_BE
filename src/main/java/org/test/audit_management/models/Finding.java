@@ -14,6 +14,10 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+/**
+ * This class represents the Findings entity of the application. Findings are closely related to audits
+ * as they are the core result of Audits.
+ */
 @Table(name = "finding")
 @Entity
 @NoArgsConstructor
@@ -64,6 +68,13 @@ public class Finding {
     @Column(name = "closed_at")
     private LocalDateTime closedAt;
 
+    /**
+     * This is a constructor that is used during the creation of a finding, it is called on the Finding Service
+     * and associates the finding to the audit.
+     *
+     * @param newFindingDTO New finding dto
+     * @param audit Audit to which the finding will be related
+     */
     public Finding(NewFindingDTO newFindingDTO, Audit audit) {
         this.audit = audit;
         this.assessment = newFindingDTO.assessment();
@@ -73,6 +84,12 @@ public class Finding {
         this.createdAt = LocalDateTime.now();
     }
 
+    /**
+     * This method converts an input in milliseconds (timestamp) in a localDateTime object.
+     *
+     * @param stamp Timestamp in milliseconds.
+     * @return localDateTime object.
+     */
     public static LocalDateTime convertMllsTimeStamp(long stamp) {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(
                 Instant.ofEpochMilli(stamp),
@@ -81,6 +98,12 @@ public class Finding {
         return localDateTime;
     }
 
+
+    /**
+     * This method is used during the update of an existing finding.
+     *
+     * @param findingEditDTO DTO with the new information of the audit.
+     */
     public void updateFields(FindingEditDTO findingEditDTO) {
         this.assessment = findingEditDTO.assessment();
         this.findingTitle = findingEditDTO.findingTitle();

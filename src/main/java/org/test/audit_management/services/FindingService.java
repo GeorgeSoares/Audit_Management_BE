@@ -16,6 +16,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+
+/**
+ *  This Service here is responsible for the implementation of the business logic related to the Audit Findings, it covers the
+ *  creation, update, retrieval e deletion of findings.
+ *  For the purpose of the interaction with the database, the bean of the findings repository is injected. A bean of the audit repository
+ *  is also injected.
+ */
 @Service
 public class FindingService {
 
@@ -25,6 +32,14 @@ public class FindingService {
     @Autowired
     FindingsRepository findingsRepository;
 
+    /**
+     * This method creates a finding, it checks if the audit_id passed as argument is valid, if not, it returns an error.
+     * All findings must be linked to an audit!
+     *
+     * @param newFindingDTO Object with the information of the finding sent by the template.
+     * @param auditId GUID of the audit to which the finding is linked to.
+     * @return true if the audit was successfully created.
+     */
     public boolean createFinding(@NotNull NewFindingDTO newFindingDTO, @NotNull UUID auditId) {
 
         Optional<Audit> auditOptional = auditRepository.findById(auditId);
@@ -39,6 +54,15 @@ public class FindingService {
         return true;
     }
 
+    /**
+     * This method is used to update the information of an existing finding based on the information sent by the
+     * template on the front end. It checks if the Finding id is valid, if so, it will be updated according to the
+     * information passed.
+     *
+     * @param findingEditDTO DTO with the updated information of the finding.
+     * @param findingId ID of the finding to be changed.
+     * @return true if the updated object of the finding was successfully persisted in the database.
+     */
     public boolean editFinding(@NotNull FindingEditDTO findingEditDTO, long findingId) {
 
         Optional<Finding> findingOptional = findingsRepository.findById(findingId);
@@ -55,6 +79,13 @@ public class FindingService {
         }
     }
 
+    /**
+     * This method deletes a finding from the database. It takes the finding id as argument and proceed with the deletion
+     * if the provided id is valid.
+     *
+     * @param findingId ID of the finding to be deleted.
+     * @return Response entity with the result of the process.
+     */
     public ResponseEntity<?> deleteFinding(long findingId) {
         Optional<Finding> findingOptional = findingsRepository.findById(findingId);
 
@@ -67,6 +98,12 @@ public class FindingService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Finding not found");
     }
 
+    /**
+     * This method lists all findings from an audit based on the audit id.
+     *
+     * @param auditID ID of the audit to be consulted.
+     * @return List of the Findings of the audit.
+     */
     public List<Finding> listAuditFindings(UUID auditID) {
 
         Optional<Audit> audit = auditRepository.findById(auditID);

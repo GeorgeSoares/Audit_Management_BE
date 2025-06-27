@@ -43,9 +43,15 @@ public class AuditController {
         return auditService.listAudits();
     }
 
-    @GetMapping(value = "/{auditId}") // Add custom return to the function
-    public Optional<Audit> getAudit(@PathVariable UUID auditId) {
-        return auditService.getAudit(auditId);
+    @GetMapping(value = "/{auditId}")
+    public ResponseEntity<?> getAudit(@PathVariable UUID auditId) {
+        Optional<Audit> audit = auditService.getAudit(auditId);
+
+        if(audit.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(audit);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Audit not found");
+        }
     }
 
     @PutMapping(value = "/{auditId}")

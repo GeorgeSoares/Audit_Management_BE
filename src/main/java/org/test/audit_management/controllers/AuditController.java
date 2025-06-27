@@ -50,7 +50,7 @@ public class AuditController {
         if(audit.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(audit);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Audit not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Audit not found.");
         }
     }
 

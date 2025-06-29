@@ -50,9 +50,7 @@ public class FindingControllerTest {
     void shouldCreateNewFindingSuccessfully() throws Exception {
         UUID auditId = UUID.randomUUID();
 
-        NewFindingDTO dto = new NewFindingDTO(
-                "Observation", "Missing checklist", "Checklists not used in last audit", "John", "Open", "Analysis missing", "Alice", "Add training"
-        );
+        NewFindingDTO dto = new NewFindingDTO("Observation", "Title", "Open", "Desc", "Root cause", "GS", "GS", "Actions");
 
         Mockito.when(findingService.createFinding(Mockito.any(), Mockito.eq(auditId))).thenReturn(true);
 

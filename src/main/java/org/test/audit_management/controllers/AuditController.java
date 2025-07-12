@@ -14,6 +14,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Controller responsible for handling HTTP requests related to audit operations.
+ * It exposes endpoints to create, retrieve, update, and delete audits.
+ */
 @RestController
 @RequestMapping("/api/v1/audits")
 @CrossOrigin(origins = "*")
@@ -25,11 +29,21 @@ public class AuditController {
     @Autowired
     private AuditService auditService;
 
+    /**
+     * Health check.
+     * @return
+     */
     @GetMapping(value = "/hello")
     public String hello() {
         return "Hello World!";
     }
 
+    /**
+     * This method creates a new audit based on the provided DTO.
+     *
+     * @param auditRequest DTO containing audit creation data.
+     * @return HTTP response.
+     */
     @PostMapping(value = "/createAudit")
     public ResponseEntity<?> createNewAudit(@RequestBody AuditRequestDTO auditRequest) {
         if (auditService.createNewAudit(auditRequest)) {
@@ -38,11 +52,22 @@ public class AuditController {
         return ResponseEntity.status(HttpStatus.OK).body("Fail to create the audit");
     }
 
+    /**
+     * Retrieves a list of all audits in the database.
+     *
+     * @return List of existing audits in the database.
+     */
     @GetMapping(value = "/")
     public List<Audit> listAllAudits() {
         return auditService.listAudits();
     }
 
+    /**
+     * Retrieves a specific audit by its UUID.
+     *
+     * @param auditId UUID of the audit to retrieve.
+     * @return If the Audit is found, it will be return in a body of an HTTP Response (Status 200). 404 if not found.
+     */
     @GetMapping(value = "/{auditId}")
     public ResponseEntity<?> getAudit(@PathVariable UUID auditId) {
         Optional<Audit> audit = auditService.getAudit(auditId);
@@ -54,6 +79,13 @@ public class AuditController {
         }
     }
 
+    /**
+     * Updates an existing audit identified by its UUID.
+     *
+     * @param auditId UUID of the audit to update.
+     * @param auditEditDTO DTO with updated audit information.
+     * @return HTTP 200 if updated, 400 if audit not found or update fails.
+     */
     @PutMapping(value = "/{auditId}")
     public ResponseEntity<?> updateAudit(@PathVariable UUID auditId, @RequestBody AuditEditDTO auditEditDTO) {
 
@@ -70,6 +102,12 @@ public class AuditController {
         }
     }
 
+    /**
+     * Deletes an audit identified by its UUID.
+     *
+     * @param auditId UUID of the audit to delete.
+     * @return HTTP 200 if deleted, or 400 if audit does not exist.
+     */
     @DeleteMapping(value = "/{auditId}")
     public ResponseEntity<?> deleteAudit(@PathVariable UUID auditId) {
 

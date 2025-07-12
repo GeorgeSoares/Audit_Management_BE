@@ -9,6 +9,10 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * This class represents the Audit entity. It has an auditId as primary key and other attributes that define an audit.
+ */
+
 @Table(name = "audits")
 @Entity
 @NoArgsConstructor
@@ -52,6 +56,13 @@ public class Audit {
     private LocalDateTime lastUpdate;
 
 
+    /**
+     * This method converts the time stamp in milliseconds sent by the front end to a LocalDateTime object. The value of this LocalDateTime
+     * will be saved on the database.
+     *
+     * @param stamp
+     * @return LocalDateTime object corresponding the time stamp in milliseconds.
+     */
     public static LocalDateTime convertMllsTimeStamp(long stamp) {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(
                 Instant.ofEpochMilli(stamp),
